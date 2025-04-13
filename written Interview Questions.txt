@@ -1,0 +1,148 @@
+Q#1
+console John, 30 , New York, john@example.com, ABC School
+const jsonData =
+{
+    "name": "John",
+    "age": 30,
+    "address": {
+        "city": "New York",
+        "street": "123 Main St",
+        "zipcode": "10001"
+    },
+    "contacts": [
+        {
+            "type": "email",
+            "value": "john@example.com"
+        },
+        {
+            "type": "phone",
+            "value": "555-1234"
+        }
+    ],
+    "education": {
+        "primary": {
+            "school": "ABC School",
+            "year": 1995
+        },
+        "secondary": {
+            "school": "XYZ High School",
+            "year": 2005
+        }
+    }
+};
+
+Q#2 (Dont Use Compiler)
+const numbers = [1, 2, 3, 4, 5];
+
+const result = numbers
+  .filter((num) => {
+    if (num % 2 === 0) console.log(`Filtered even: ${num}`);
+    return num % 2 === 0;
+  })
+  .map((num) => {
+    console.log(`Mapped: ${num}`);
+    return num * 2;
+  })
+  .forEach((num) => {
+    console.log(`Final: ${num}`);
+  });
+
+console.log('Result:', result);
+
+Q#3
+🧩 Task:
+Build a small component called <SmartCounter />. It should display a number and have two buttons:
+
+"Add": Increases the counter by 1.
+
+"Add 3 Quickly": Simulates 3 quick clicks of the "Add" button.
+
+🔧 Requirements:
+The counter should increment by exactly 3 when "Add 3 Quickly" is clicked.
+
+You must use the same add logic that "Add" uses — no manual +3 in the quick add.
+
+Q#4
+🧩 Next.js Challenge: “Profile Viewer with Weird API Timing”
+📜 Scenario:
+You’re building a pages/profile/[username].js page in Next.js that fetches and displays a user’s profile using a custom hook and a local API route (/api/profile/[username]). The page must:
+
+Show user data (name, bio, etc.).
+
+Display a loading spinner while fetching.
+
+Cache the result for a short time (like 10 seconds).
+
+Fetch data using a custom React hook.
+
+Handle non-existent users gracefully (i.e., show "User not found").
+
+Object
+ const users = {
+    alice: { name: 'Alice', bio: 'Software dev' },
+    bob: { name: 'Bob', bio: 'Designer' }
+  };
+
+Q#5
+🧩 Question:
+You are given the following AuthContext implementation and usage. Fix the bug that prevents the app from working correctly.
+
+👇 Code Snippet:
+jsx
+Copy
+Edit
+// AuthContext.js
+import { createContext, useState } from 'react';
+
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+jsx
+Copy
+Edit
+// App.js
+import React from 'react';
+import { AuthProvider, AuthContext } from './AuthContext';
+
+function Login() {
+  const { setUser } = React.useContext(AuthContext);
+
+  return (
+    <button onClick={() => setUser({ name: 'Alice' })}>
+      Login as Alice
+    </button>
+  );
+}
+
+function UserInfo() {
+  const { user } = React.useContext(AuthContext);
+
+  return <p>{user ? `Hello, ${user.name}` : 'Not logged in'}</p>;
+}
+
+export default function App() {
+  return (
+    <div>
+      <Login />
+      <UserInfo />
+    </div>
+  );
+}
+❗ Problem:
+When you click "Login as Alice", nothing happens — no errors, but UserInfo doesn’t update.
+
+🧠 What’s Being Tested:
+Knowledge of Context boundaries
+
+Awareness of missing AuthProvider wrapper
+
+Familiarity with how React context propagation works
+
